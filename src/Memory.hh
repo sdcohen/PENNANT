@@ -18,7 +18,6 @@
 #include <omp.h>
 #endif
 
-
 // Namespace Memory provides functions to allocate and free memory.
 // Currently these are just wrappers around std::malloc and free,
 // but they are abstracted here to make it easier to replace them
@@ -29,21 +28,23 @@ namespace Memory {
 template<typename T>
 inline T* alloc(const int count) {
 #if defined(_OPENMP) && defined(__INTEL_COMPILER)
-    return (T*) kmp_malloc(count * sizeof(T));
+  return (T*) kmp_malloc(count * sizeof(T));
 #else
-    return (T*) std::malloc(count * sizeof(T));
+  return (T*) std::malloc(count * sizeof(T));
 #endif
 }
 
 template<typename T>
 inline void free(T* ptr) {
 #if defined(_OPENMP) && defined(__INTEL_COMPILER)
-    kmp_free(ptr);
+  kmp_free(ptr);
 #else
-    std::free(ptr);
+  std::free(ptr);
 #endif
 }
 
-};  // namespace Memory
+}
+;
+// namespace Memory
 
 #endif /* MEMORY_HH_ */

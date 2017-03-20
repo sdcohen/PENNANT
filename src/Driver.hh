@@ -20,35 +20,34 @@ class InputFile;
 class Mesh;
 class Hydro;
 
-
 class Driver {
 public:
 
-    // children of this object
-    Mesh *mesh;
-    Hydro *hydro;
+  // children of this object
+  Mesh* mesh;
+  Hydro* hydro;
 
-    std::string probname;          // problem name
-    double time;                   // simulation time
-    int cycle;                     // simulation cycle number
-    double tstop;                  // simulation stop time
-    int cstop;                     // simulation stop cycle
-    double dtmax;                  // maximum timestep size
-    double dtinit;                 // initial timestep size
-    double dtfac;                  // factor limiting timestep growth
-    int dtreport;                  // frequency for timestep reports
-    double dt;                     // current timestep
-    double dtlast;                 // previous timestep
-    std::string msgdt;             // dt limiter message
-    std::string msgdtlast;         // previous dt limiter message
+  std::string probname;          // problem name
+  double time;                   // simulation time
+  int cycle;                     // simulation cycle number
+  double tstop;                  // simulation stop time
+  int cstop;                     // simulation stop cycle
+  double dtmax;                  // maximum timestep size
+  double dtinit;                 // initial timestep size
+  double dtfac;                  // factor limiting timestep growth
+  int dtreport;                  // frequency for timestep reports
+  double dt;                     // current timestep
+  double dtlast;                 // previous timestep
+  std::string msgdt;             // dt limiter message
+  std::string msgdtlast;         // previous dt limiter message
 
-    Driver(const InputFile* inp, const std::string& pname);
-    ~Driver();
+  Driver(const InputFile* inp, const std::string& pname);
+  ~Driver();
 
-    void run();
-    void calcGlobalDt();
+  void run();
+  void calcGlobalDt();
 
-};  // class Driver
-
+};
+// class Driver
 
 #endif /* DRIVER_HH_ */

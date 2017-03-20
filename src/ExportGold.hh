@@ -19,51 +19,38 @@
 // forward declarations
 class Mesh;
 
-
 class ExportGold {
 public:
 
-    Mesh* mesh;
+  Mesh* mesh;
 
-    std::vector<int> tris;         // zone index list for 3-sided zones
-    std::vector<int> quads;        // same, for 4-sided zones
-    std::vector<int> others;       // same, for n-sided zones, n > 4
-    std::vector<int> mapzs;        // map: zone -> first side
+  std::vector<int> tris;         // zone index list for 3-sided zones
+  std::vector<int> quads;        // same, for 4-sided zones
+  std::vector<int> others;       // same, for n-sided zones, n > 4
+  std::vector<int> mapzs;        // map: zone -> first side
 
-    // parallel info, meaningful on PE 0 only:
-    std::vector<int> pentris;      // number of tris on each PE
-    std::vector<int> penquads;     // same, for quads
-    std::vector<int> penothers;    // same, for others
-    int gntris, gnquads, gnothers; // total number across all PEs
-                                   //     of tris/quads/others
+  // parallel info, meaningful on PE 0 only:
+  std::vector<int> pentris;      // number of tris on each PE
+  std::vector<int> penquads;     // same, for quads
+  std::vector<int> penothers;    // same, for others
+  int gntris, gnquads, gnothers;  // total number across all PEs
+                                  //     of tris/quads/others
 
-    ExportGold(Mesh* m);
-    ~ExportGold();
+  ExportGold(Mesh* m);
+  ~ExportGold();
 
-    void write(
-            const std::string& basename,
-            const int cycle,
-            const double time,
-            const double* zr,
-            const double* ze,
-            const double* zp);
+  void write(const std::string& basename, const int cycle, const double time,
+      const double* zr, const double* ze, const double* zp);
 
-    void writeCaseFile(
-            const std::string& basename);
+  void writeCaseFile(const std::string& basename);
 
-    void writeGeoFile(
-            const std::string& basename,
-            const int cycle,
-            const double time);
+  void writeGeoFile(const std::string& basename, const int cycle,
+      const double time);
 
-    void writeVarFile(
-            const std::string& basename,
-            const std::string& varname,
-            const double* var);
+  void writeVarFile(const std::string& basename, const std::string& varname,
+      const double* var);
 
-    void sortZones();
+  void sortZones();
 };
-
-
 
 #endif /* EXPORTGOLD_HH_ */

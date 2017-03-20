@@ -19,31 +19,23 @@
 class InputFile;
 class Hydro;
 
-
 class TTS {
 public:
 
-    // parent hydro object
-    Hydro* hydro;
+  // parent hydro object
+  Hydro* hydro;
 
-    double alfa;                   // alpha coefficient for TTS model
-    double ssmin;                  // minimum sound speed
+  double alfa;                   // alpha coefficient for TTS model
+  double ssmin;                  // minimum sound speed
 
-    TTS(const InputFile* inp, Hydro* h);
-    ~TTS();
+  TTS(const InputFile* inp, Hydro* h);
+  ~TTS();
 
-void calcForce(
-        const double* zarea,
-        const double* zr,
-        const double* zss,
-        const double* sarea,
-        const double* smf,
-        const double2* ssurfp,
-        double2* sf,
-        const int sfirst,
-        const int slast);
+  void calcForce(const double* zarea, const double* zr, const double* zss,
+      const double* sarea, const double* smf, const double2* ssurfp,
+      double2* sf, const int sfirst, const int slast);
 
-}; // class TTS
-
+};
+// class TTS
 
 #endif /* TTS_HH_ */

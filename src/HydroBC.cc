@@ -17,37 +17,31 @@
 
 using namespace std;
 
+HydroBC::HydroBC(Mesh* msh, const double2 v, const vector<int>& mbp) :
+      mesh(msh),
+      numb(mbp.size()),
+      vfix(v) {
 
-HydroBC::HydroBC(
-        Mesh* msh,
-        const double2 v,
-        const vector<int>& mbp)
-    : mesh(msh), numb(mbp.size()), vfix(v) {
+  mapbp = Memory::alloc<int>(numb);
+  copy(mbp.begin(), mbp.end(), mapbp);
 
-    mapbp = Memory::alloc<int>(numb);
-    copy(mbp.begin(), mbp.end(), mapbp);
-
-    mesh->getPlaneChunks(numb, mapbp, pchbfirst, pchblast);
+  mesh->getPlaneChunks(numb, mapbp, pchbfirst, pchblast);
 
 }
 
+HydroBC::~HydroBC() {
+}
 
-HydroBC::~HydroBC() {}
+void HydroBC::applyFixedBC(double2* pu, double2* pf, const int bfirst,
+    const int blast) {
 
+#pragma ivdep
+  for (int b = bfirst; b < blast; ++b) {
+    int p = mapbp[b];
 
-void HydroBC::applyFixedBC(
-        double2* pu,
-        double2* pf,
-        const int bfirst,
-        const int blast) {
-
-    #pragma ivdep
-    for (int b = bfirst; b < blast; ++b) {
-        int p = mapbp[b];
-
-        pu[p] = project(pu[p], vfix);
-        pf[p] = project(pf[p], vfix);
-    }
+    pu[p] = project(pu[p], vfix);
+    pf[p] = project(pf[p], vfix);
+  }
 
 }
 

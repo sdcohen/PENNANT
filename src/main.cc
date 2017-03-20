@@ -20,35 +20,30 @@
 
 using namespace std;
 
+int main(const int argc, const char** argv) {
+  Parallel::init();
 
-int main(const int argc, const char** argv)
-{
-    Parallel::init();
+  if (argc != 2) {
+    if (Parallel::mype == 0) cerr << "Usage: pennant <filename>" << endl;
+    exit(1);
+  }
 
-    if (argc != 2) {
-        if (Parallel::mype == 0)
-            cerr << "Usage: pennant <filename>" << endl;
-        exit(1);
-    }
+  const char* filename = argv[1];
+  InputFile inp(filename);
 
-    const char* filename = argv[1];
-    InputFile inp(filename);
+  string probname(filename);
+  // strip .pnt suffix from filename
+  int len = probname.length();
+  if (probname.substr(len - 4, 4) == ".pnt")
+    probname = probname.substr(0, len - 4);
 
-    string probname(filename);
-    // strip .pnt suffix from filename
-    int len = probname.length();
-    if (probname.substr(len - 4, 4) == ".pnt")
-        probname = probname.substr(0, len - 4);
+  Driver drv(&inp, probname);
 
-    Driver drv(&inp, probname);
+  drv.run();
 
-    drv.run();
+  Parallel::final();
 
-    Parallel::final();
-
-    return 0;
+  return 0;
 
 }
-
-
 

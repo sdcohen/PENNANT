@@ -18,22 +18,17 @@
 // forward declarations
 class Mesh;
 
-
 class WriteXY {
 public:
 
-    Mesh* mesh;
+  Mesh* mesh;
 
-    WriteXY(Mesh* m);
-    ~WriteXY();
+  WriteXY(Mesh* m);
+  ~WriteXY();
 
-    void write(
-            const std::string& basename,
-            const double* zr,
-            const double* ze,
-            const double* zp);
+  void write(const std::string& basename, const double* zr, const double* ze,
+      const double* zp);
 
 };
-
 
 #endif /* WRITEXY_HH_ */
