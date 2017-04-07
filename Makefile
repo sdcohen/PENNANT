@@ -13,16 +13,16 @@ BINARY := $(BUILDDIR)/$(PRODUCT)
 # begin compiler-dependent flags
 #
 # gcc flags:
-#CXX := g++
-#CXXFLAGS_DEBUG := -g
-#CXXFLAGS_OPT := -O3
-#CXXFLAGS_OPENMP := -fopenmp
+CXX := g++
+CXXFLAGS_DEBUG := -pg
+CXXFLAGS_OPT := -O3 -march=native
+CXXFLAGS_OPENMP := -fopenmp -pg
 
 # intel flags:
-CXX := icpc
-CXXFLAGS_DEBUG := -g
-CXXFLAGS_OPT := -O3 -fast -fno-alias
-CXXFLAGS_OPENMP := -openmp
+#CXX := icpc
+#CXXFLAGS_DEBUG := -g
+#CXXFLAGS_OPT := -O3 -fast -fno-alias
+#CXXFLAGS_OPENMP := -openmp
 
 # pgi flags:
 #CXX := pgCC
